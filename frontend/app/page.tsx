@@ -15,6 +15,7 @@ export default function TradingDashboard() {
   const [analysisHeight, setAnalysisHeight] = useState(300)
   const [isDraggingChat, setIsDraggingChat] = useState(false)
   const [isDraggingAnalysis, setIsDraggingAnalysis] = useState(false)
+  const [currentSymbol, setCurrentSymbol] = useState("BTCUSDT")
 
   const handleChatResize = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -83,7 +84,7 @@ export default function TradingDashboard() {
       >
         {/* Top Left: TradingView Chart */}
         <div className="border-r border-b border-border relative">
-          <TradingViewChart />
+          <TradingViewChart symbol={currentSymbol} onSymbolChange={setCurrentSymbol} />
         </div>
 
         {isChatOpen && (
@@ -98,7 +99,11 @@ export default function TradingDashboard() {
               >
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-12 bg-border rounded-full" />
               </div>
-              <ChatPanel onClose={() => setIsChatOpen(false)} />
+              <ChatPanel
+                onClose={() => setIsChatOpen(false)}
+                currentSymbol={currentSymbol}
+                onSymbolChange={setCurrentSymbol}
+              />
             </div>
           </>
         )}
